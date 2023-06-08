@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+<sql>
+    SELECT
+        mb.first_name AS "First Name",
+        mb.last_name AS "Last Name"
+        FROM
+            borrowings br
+            JOIN
+                books bk ON br.book_id=br.book_id
+                    JOIN
+                        members mb on mb.member_id=mb.member_id
+        WHERE
+            bk.author='Dan Brown'
+            and
+            mb.member_id=br.member_id
+            and
+            br.book_id=bk.book_id
+</sql>
+
+<scql-v1>
+<select>
+    <fields>
+        <link alias="First Name">mb.first_name</link>
+        <link alias="Last Name">mb.last_name</link>
+    </fields>
+    <source>
+        <inner-join>
+            <left-outer-join>
+                <table alias="br">borrowings</table>
+                <table alias="bk">books</table>
+            </left-outer-join>
+            <table alias="mb">members</table>
+        </inner-join>
+    </source>
+    <condition>
+        <and>
+            <equals>
+                <link>bk.author</link>
+                <value>Dan Brown</value>
+            </equals>
+            <equals>
+                <link>mb.member_id</link>
+                <link>br.member_id</link>
+            </equals>
+            <equals>
+                <link>br.book_id</link>
+                <link>bk.book_id</link>
+            </equals>
+        </and>
+    </condition>
+</select>
+</scql-v1>
+
+<scql-v2>
+    <inner-join>
+        <fields>
+            <link alias="First Name">mb.first_name</link>
+            <link alias="Last Name">mb.last_name</link>
+        </fields>
+        <left-outer-join>
+            <table alias="br">borrowings</table>
+            <table alias="bk">books</table>
+        </left-outer-join>
+        <table alias="mb">members</table>
+        <condition>
+            <and>
+                <equals>
+                    <link>bk.author</link>
+                    <value>Dan Brown</value>
+                </equals>
+                <equals>
+                    <link>mb.member_id</link>
+                    <link>br.member_id</link>
+                </equals>
+                <equals>
+                    <link>br.book_id</link>
+                    <link>bk.book_id</link>
+                </equals>
+            </and>
+        </condition>
+    </inner-join>
+</scql-v2>
+</root>

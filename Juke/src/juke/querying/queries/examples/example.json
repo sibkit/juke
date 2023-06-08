@@ -1,0 +1,58 @@
+{
+  "type": "inner-join",
+  "fields":
+  [
+    {
+      "type": "link",
+      "alias": "First Name",
+      "path": "mb.first_name"
+    },
+    {
+      "type": "link",
+      "alias": "Last Name",
+      "path": "mb.last_name"
+    }
+  ],
+  "left-source":
+  {
+    "type": "left-outer-join",
+    "left-source":
+    {
+      "type" : "table",
+      "name": "borrowings",
+      "alias": "br"
+    },
+    "right-source":
+    {
+      "type" : "table",
+      "name": "books",
+      "alias": "bk"
+    }
+  },
+  "right-source":
+  {
+    "type": "table",
+    "name": "members",
+    "alias": "mb"
+  },
+  "condition":
+  {
+    "type": "AND",
+    "conditions":
+    [
+      {
+        "type": "EQUALS",
+        "left-part":
+        {
+          "type": "link",
+          "path": "bk.author"
+        },
+        "right-part":
+        {
+          "type": "value",
+          "value": "Dan Brown"
+        }
+      }
+    ]
+  }
+}

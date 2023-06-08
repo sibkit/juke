@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<inner-join>
+    <fields>
+        <link alias="First Name" path="mb.first_name"/>
+        <link alias="Last Name" path="mb.last_name"/>
+    </fields>
+    <sources>
+        <left-outer-join>
+            <sources>
+                <table alias="br" name="borrowings"/>
+                <table alias="bk" name="books"/>
+            </sources>
+        </left-outer-join>
+        <table alias="mb" name="members"/>
+    </sources>
+    <condition>
+        <and>
+            <equals>
+                <link path="bk.author"/>
+                <const value="Dan Brown"/>
+            </equals>
+            <equals>
+                <link path="mb.member_id"/>
+                <link path="br.member_id"/>
+            </equals>
+            <equals>
+                <link path="br.book_id"/>
+                <link path="bk.book_id"/>
+            </equals>
+        </and>
+    </condition>
+</inner-join>
